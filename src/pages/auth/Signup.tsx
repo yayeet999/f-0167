@@ -12,7 +12,7 @@ const Signup = () => {
 
   // Check for authentication state changes
   supabase.auth.onAuthStateChange((event, session) => {
-    if (event === "SIGNED_UP" && session) {
+    if (event === "SIGNED_IN" && session) {
       navigate("/dashboard");
       toast({
         title: "Welcome to Narrately!",
