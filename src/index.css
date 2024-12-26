@@ -99,3 +99,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .animate-reveal {
+    animation: reveal 0.7s ease-out forwards;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

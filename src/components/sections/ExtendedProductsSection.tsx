@@ -6,6 +6,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import ScrollReveal from "@/components/ui/scroll-reveal";
 
 const productCategories = [
   {
@@ -191,7 +192,7 @@ const productCategories = [
 const ExtendedProductsSection = () => {
   return (
     <section className="py-20 bg-white" id="features">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-4xl">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-blue-900">
           Comprehensive AI Solutions
         </h2>
@@ -203,54 +204,57 @@ const ExtendedProductsSection = () => {
               <p className="text-blue-600 max-w-2xl mx-auto">{category.description}</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="space-y-8">
               {category.products.map((product) => (
-                <Card 
-                  key={product.name} 
-                  className={`bg-${product.bgColor} border-none transform transition-transform hover:scale-105`}
-                >
-                  <CardHeader>
-                    <div className={`h-12 w-12 rounded-lg bg-${product.bgColor} p-2 mb-4`}>
-                      <product.icon className={`h-8 w-8 text-${product.textColor}`} />
-                    </div>
-                    <CardTitle className={`text-${product.textColor}`}>
-                      {product.name}
-                    </CardTitle>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <p className={`text-${product.textColor} mb-6 opacity-90`}>
-                      {product.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {product.features.map((feature) => (
-                        <li key={feature} className="flex items-center">
-                          <svg
-                            className={`h-5 w-5 text-${product.accentColor} mr-2`}
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
+                <ScrollReveal key={product.name}>
+                  <Card 
+                    className={`bg-${product.bgColor} border-none transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg`}
+                  >
+                    <div className="md:flex">
+                      <div className="md:w-1/3 p-6">
+                        <div className={`h-12 w-12 rounded-lg bg-${product.bgColor} p-2 mb-4`}>
+                          <product.icon className={`h-8 w-8 text-${product.textColor}`} />
+                        </div>
+                        <CardTitle className={`text-${product.textColor} mb-4`}>
+                          {product.name}
+                        </CardTitle>
+                        <p className={`text-${product.textColor} opacity-90`}>
+                          {product.description}
+                        </p>
+                      </div>
+                      
+                      <div className="md:w-2/3 p-6">
+                        <ul className="space-y-3">
+                          {product.features.map((feature) => (
+                            <li key={feature} className="flex items-center">
+                              <svg
+                                className={`h-5 w-5 text-${product.accentColor} mr-2 flex-shrink-0`}
+                                fill="none"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path d="M5 13l4 4L19 7" />
+                              </svg>
+                              <span className={`text-${product.textColor}`}>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <div className="mt-6">
+                          <Button 
+                            className={`w-full md:w-auto bg-${product.accentColor} hover:bg-${product.accentColor}/90`} 
+                            asChild
                           >
-                            <path d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className={`text-${product.textColor}`}>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                  
-                  <CardFooter>
-                    <Button 
-                      className={`w-full bg-${product.accentColor} hover:bg-${product.accentColor}/90`} 
-                      asChild
-                    >
-                      <Link to="/auth/signup">Try {product.name}</Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
+                            <Link to="/auth/signup">Try {product.name}</Link>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </ScrollReveal>
               ))}
             </div>
           </div>
