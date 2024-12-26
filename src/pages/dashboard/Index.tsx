@@ -83,7 +83,12 @@ const Dashboard = () => {
               >
                 <SidebarMenuItem icon={PenIcon} label="Blog Writer" color="amber" />
                 <SidebarMenuItem icon={BookIcon} label="Story Creator" color="purple" />
-                <SidebarMenuItem icon={LibraryIcon} label="Novel Workshop" color="slate" />
+                <SidebarMenuItem 
+                  icon={LibraryIcon} 
+                  label="Novel Workshop" 
+                  color="slate"
+                  to="/dashboard/novel-workshop"
+                />
               </SidebarCategory>
 
               {/* Interactive Tools */}
