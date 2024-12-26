@@ -3,10 +3,7 @@ import {
   GraduationCap, MessageSquare, CheckCircle, 
   LineChart, Mail, Palette, GitBranch 
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-import ScrollReveal from "@/components/ui/scroll-reveal";
+import { ProductCategory } from "@/components/ui/product-category";
 
 const productCategories = [
   {
@@ -199,75 +196,12 @@ const ExtendedProductsSection = () => {
         </h2>
         
         {productCategories.map((category) => (
-          <div key={category.title} className="mb-20">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4 text-blue-800">{category.title}</h3>
-              <p className="text-blue-600 max-w-3xl mx-auto">{category.description}</p>
-            </div>
-            
-            <div className="space-y-12">
-              {category.products.map((product) => (
-                <ScrollReveal key={product.name}>
-                  <Card 
-                    className={`bg-${product.bgColor} border-none transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl w-full`}
-                  >
-                    <div className="md:flex p-8">
-                      <div className="md:w-1/3 mb-6 md:mb-0 pr-8">
-                        <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-6`}>
-                          <product.icon className={`h-10 w-10 text-${product.textColor}`} />
-                        </div>
-                        {product.image && (
-                          <div className="mb-6">
-                            <img 
-                              src={product.image} 
-                              alt={product.name}
-                              className="w-full h-auto rounded-lg shadow-md"
-                            />
-                          </div>
-                        )}
-                        <h4 className={`text-2xl font-bold text-${product.textColor} mb-4`}>
-                          {product.name}
-                        </h4>
-                        <p className={`text-${product.textColor} opacity-90 text-lg`}>
-                          {product.description}
-                        </p>
-                      </div>
-                      
-                      <div className="md:w-2/3">
-                        <ul className="space-y-4 mb-8">
-                          {product.features.map((feature) => (
-                            <li key={feature} className="flex items-center">
-                              <svg
-                                className={`h-6 w-6 text-${product.accentColor} mr-3 flex-shrink-0`}
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                              >
-                                <path d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span className={`text-${product.textColor} text-lg`}>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        
-                        <div>
-                          <Button 
-                            className={`w-full md:w-auto text-lg py-6 px-8 bg-${product.accentColor} hover:bg-${product.accentColor}/90`} 
-                            asChild
-                          >
-                            <Link to="/auth/signup">Try {product.name}</Link>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
+          <ProductCategory
+            key={category.title}
+            title={category.title}
+            description={category.description}
+            products={category.products}
+          />
         ))}
       </div>
     </section>
