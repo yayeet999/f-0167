@@ -58,7 +58,7 @@ export function ProductCard({ product }: { product: ProductFeature }) {
             <img 
               src={product.image} 
               alt={product.name}
-              className="w-full h-auto rounded-lg shadow-md object-cover"
+              className="w-full h-auto object-contain"
             />
           </div>
         )}
