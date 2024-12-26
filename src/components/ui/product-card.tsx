@@ -17,8 +17,8 @@ interface ProductFeature {
 export function ProductCard({ product }: { product: ProductFeature }) {
   return (
     <Card className={`bg-${product.bgColor} border-none transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl w-full`}>
-      <div className="md:flex p-6">
-        <div className={`${product.image ? 'md:w-1/2' : 'w-full'} ${product.image ? 'pr-6' : ''}`}>
+      <div className="flex flex-col md:flex-row p-6">
+        <div className={`flex-1 ${product.image ? 'md:w-1/2' : 'w-full'} ${product.image ? 'md:pr-6' : ''}`}>
           <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-4`}>
             <product.icon className={`h-10 w-10 text-${product.textColor}`} />
           </div>
@@ -58,7 +58,7 @@ export function ProductCard({ product }: { product: ProductFeature }) {
             <img 
               src={product.image} 
               alt={product.name}
-              className="w-full h-auto object-contain max-h-64"
+              className="w-auto h-auto object-contain"
             />
           </div>
         )}
