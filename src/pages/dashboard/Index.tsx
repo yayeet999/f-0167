@@ -82,79 +82,9 @@ const DashboardPage = () => {
     }
   };
 
-  const SidebarContent = () => (
-    <div className="w-full bg-white h-full">
-      <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
-      
-      <div className="space-y-1">
-        <div className="flex items-center gap-2 p-2 bg-blue-50 text-blue-900 rounded">
-          <HomeIcon className="w-4 h-4" />
-          <span>Dashboard</span>
-        </div>
-
-        <SidebarCategory
-          title="CORE CREATION"
-          isExpanded={expandedCategory === 'core'}
-          onToggle={() => setExpandedCategory(expandedCategory === 'core' ? '' : 'core')}
-        >
-          <SidebarMenuItem icon={PenIcon} label="Blog Writer" color="amber" />
-          <SidebarMenuItem icon={BookIcon} label="Story Creator" color="purple" />
-          <SidebarMenuItem icon={LibraryIcon} label="Novel Workshop" color="slate" />
-        </SidebarCategory>
-
-        {/* ... Add other categories following the same pattern */}
-        {/* Interactive Tools */}
-        <SidebarCategory
-          title="INTERACTIVE"
-          isExpanded={expandedCategory === 'interactive'}
-          onToggle={() => setExpandedCategory(expandedCategory === 'interactive' ? '' : 'interactive')}
-        >
-          <SidebarMenuItem icon={Layout} label="Interactive Story" color="cyan" />
-          <SidebarMenuItem icon={FileText} label="AuthentiText™" color="green" />
-          <SidebarMenuItem icon={MessageSquare} label="DocumentChat" color="fuchsia" />
-        </SidebarCategory>
-
-        {/* Professional Tools */}
-        <SidebarCategory
-          title="PROFESSIONAL"
-          isExpanded={expandedCategory === 'professional'}
-          onToggle={() => setExpandedCategory(expandedCategory === 'professional' ? '' : 'professional')}
-        >
-          <SidebarMenuItem icon={BarChart} label="Business Reports" color="gray" />
-          <SidebarMenuItem icon={FileSpreadsheet} label="CareerCraft" color="stone" />
-          <SidebarMenuItem icon={Mail} label="EmailCraft" color="yellow" />
-        </SidebarCategory>
-
-        {/* Learning & Analysis */}
-        <SidebarCategory
-          title="LEARNING & ANALYSIS"
-          isExpanded={expandedCategory === 'learning'}
-          onToggle={() => setExpandedCategory(expandedCategory === 'learning' ? '' : 'learning')}
-        >
-          <SidebarMenuItem icon={Brain} label="Course Creator" color="orange" />
-          <SidebarMenuItem icon={FileSearch} label="ProofPerfect™" color="red" />
-          <SidebarMenuItem icon={Layout} label="VisualLogic" color="emerald" />
-        </SidebarCategory>
-
-        {/* Developer Tools */}
-        <SidebarCategory
-          title="DEVELOPER"
-          isExpanded={expandedCategory === 'developer'}
-          onToggle={() => setExpandedCategory(expandedCategory === 'developer' ? '' : 'developer')}
-        >
-          <SidebarMenuItem icon={Sparkles} label="StyleMimic" color="lime" />
-          <SidebarMenuItem icon={Code} label="RepoVision" color="zinc" />
-        </SidebarCategory>
-
-        {/* Workspace */}
-        <div className="mt-6">
-          <div className="p-2 text-sm font-medium text-gray-500">WORKSPACE</div>
-          <SidebarMenuItem icon={BookOpen} label="My Library" color="gray" />
-          <SidebarMenuItem icon={Settings} label="Settings" color="gray" />
-        </div>
-      </div>
-    </div>
-  );
+  const handleSettingsClick = () => {
+    navigate('/dashboard/settings');
+  };
 
   if (!user) return null;
 
@@ -163,14 +93,107 @@ const DashboardPage = () => {
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden md:block w-72 fixed h-screen p-4">
-          <SidebarContent />
+          <div className="w-full bg-white h-full">
+            <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
+            
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 p-2 bg-blue-50 text-blue-900 rounded">
+                <HomeIcon className="w-4 h-4" />
+                <span>Dashboard</span>
+              </div>
+
+              <SidebarCategory
+                title="CORE CREATION"
+                isExpanded={expandedCategory === 'core'}
+                onToggle={() => setExpandedCategory(expandedCategory === 'core' ? '' : 'core')}
+              >
+                <SidebarMenuItem icon={PenIcon} label="Blog Writer" color="amber" />
+                <SidebarMenuItem icon={BookIcon} label="Story Creator" color="purple" />
+                <SidebarMenuItem icon={LibraryIcon} label="Novel Workshop" color="slate" />
+              </SidebarCategory>
+
+              {/* Interactive Tools */}
+              <SidebarCategory
+                title="INTERACTIVE"
+                isExpanded={expandedCategory === 'interactive'}
+                onToggle={() => setExpandedCategory(expandedCategory === 'interactive' ? '' : 'interactive')}
+              >
+                <SidebarMenuItem icon={Layout} label="Interactive Story" color="cyan" />
+                <SidebarMenuItem icon={FileText} label="AuthentiText™" color="green" />
+                <SidebarMenuItem icon={MessageSquare} label="DocumentChat" color="fuchsia" />
+              </SidebarCategory>
+
+              {/* Professional Tools */}
+              <SidebarCategory
+                title="PROFESSIONAL"
+                isExpanded={expandedCategory === 'professional'}
+                onToggle={() => setExpandedCategory(expandedCategory === 'professional' ? '' : 'professional')}
+              >
+                <SidebarMenuItem icon={BarChart} label="Business Reports" color="gray" />
+                <SidebarMenuItem icon={FileSpreadsheet} label="CareerCraft" color="stone" />
+                <SidebarMenuItem icon={Mail} label="EmailCraft" color="yellow" />
+              </SidebarCategory>
+
+              {/* Learning & Analysis */}
+              <SidebarCategory
+                title="LEARNING & ANALYSIS"
+                isExpanded={expandedCategory === 'learning'}
+                onToggle={() => setExpandedCategory(expandedCategory === 'learning' ? '' : 'learning')}
+              >
+                <SidebarMenuItem icon={Brain} label="Course Creator" color="orange" />
+                <SidebarMenuItem icon={FileSearch} label="ProofPerfect™" color="red" />
+                <SidebarMenuItem icon={Layout} label="VisualLogic" color="emerald" />
+              </SidebarCategory>
+
+              {/* Developer Tools */}
+              <SidebarCategory
+                title="DEVELOPER"
+                isExpanded={expandedCategory === 'developer'}
+                onToggle={() => setExpandedCategory(expandedCategory === 'developer' ? '' : 'developer')}
+              >
+                <SidebarMenuItem icon={Sparkles} label="StyleMimic" color="lime" />
+                <SidebarMenuItem icon={Code} label="RepoVision" color="zinc" />
+              </SidebarCategory>
+
+              {/* Workspace */}
+              <div className="mt-6">
+                <div className="p-2 text-sm font-medium text-gray-500">WORKSPACE</div>
+                <div className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer">
+                  <BookOpen className="w-4 h-4" />
+                  <span>My Library</span>
+                </div>
+                <div 
+                  className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer"
+                  onClick={handleSettingsClick}
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Mobile Menu */}
         <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white p-4 flex items-center justify-between shadow-sm">
           <div className="text-blue-900 font-semibold">Narrately.ai</div>
           <MobileMenu>
-            <SidebarContent />
+            <div className="w-full bg-white h-full">
+              <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 p-2 bg-blue-50 text-blue-900 rounded">
+                  <HomeIcon className="w-4 h-4" />
+                  <span>Dashboard</span>
+                </div>
+                <div 
+                  className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer"
+                  onClick={handleSettingsClick}
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </div>
+              </div>
+            </div>
           </MobileMenu>
         </div>
 
