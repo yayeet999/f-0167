@@ -166,7 +166,21 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      content_type: "blog" | "story" | "novel"
+      content_type:
+        | "blog"
+        | "story"
+        | "novel"
+        | "interactive_story"
+        | "authentitext"
+        | "documentchat"
+        | "business_report"
+        | "careercraft"
+        | "emailcraft"
+        | "course"
+        | "proofperfect"
+        | "visuallogic"
+        | "stylemimic"
+        | "repovision"
       subscription_tier_type: "free" | "standard" | "pro"
     }
     CompositeTypes: {
