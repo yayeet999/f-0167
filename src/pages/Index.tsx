@@ -1,7 +1,10 @@
+import { useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import { useEffect } from "react";
+import CoreProductsSection from "@/components/sections/CoreProductsSection";
+import PricingSection from "@/components/sections/PricingSection";
+import FAQSection from "@/components/sections/FAQSection";
 
 const Index = () => {
   useEffect(() => {
@@ -24,7 +27,9 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        {/* Additional sections will be added here */}
+        <CoreProductsSection />
+        <PricingSection />
+        <FAQSection />
       </main>
       <Footer />
     </div>

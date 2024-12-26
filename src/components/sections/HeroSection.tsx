@@ -6,11 +6,11 @@ const HeroSection = () => {
     <section id="hero" className="min-h-screen pt-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
       <div className="container mx-auto px-4 py-20 md:py-32">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Transform Your Ideas into Compelling Content
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Transform Your Ideas into Compelling Content with AI
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-12">
-            Harness the power of AI to generate blogs, stories, and novels that captivate your audience.
+            Harness the power of advanced AI to generate blogs, stories, and novels that captivate your audience and bring your vision to life.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-lg" asChild>
