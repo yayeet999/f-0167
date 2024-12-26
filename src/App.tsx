@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/dashboard/Index";
+import NovelWorkshop from "./pages/dashboard/NovelWorkshop";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/novel-workshop" element={<NovelWorkshop />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

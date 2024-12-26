@@ -1,4 +1,5 @@
 import { LucideIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface SidebarMenuItemProps {
   icon: LucideIcon;
@@ -6,6 +7,7 @@ interface SidebarMenuItemProps {
   color: string;
   isActive?: boolean;
   onClick?: () => void;
+  to?: string;
 }
 
 export const SidebarMenuItem = ({ 
@@ -13,7 +15,8 @@ export const SidebarMenuItem = ({
   label, 
   color, 
   isActive = false,
-  onClick 
+  onClick,
+  to
 }: SidebarMenuItemProps) => {
   const colorClasses = {
     amber: 'text-amber-800 hover:bg-amber-50',
@@ -32,6 +35,26 @@ export const SidebarMenuItem = ({
     zinc: 'text-zinc-800 hover:bg-zinc-50',
   }[color] || 'text-gray-800 hover:bg-gray-50';
 
+  const content = (
+    <>
+      <Icon className="w-4 h-4" />
+      <span>{label}</span>
+    </>
+  );
+
+  if (to) {
+    return (
+      <Link 
+        to={to}
+        className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
+          isActive ? 'bg-gray-50' : ''
+        }`}
+      >
+        {content}
+      </Link>
+    );
+  }
+
   return (
     <div 
       className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
@@ -39,8 +62,7 @@ export const SidebarMenuItem = ({
       }`}
       onClick={onClick}
     >
-      <Icon className="w-4 h-4" />
-      <span>{label}</span>
+      {content}
     </div>
   );
 };
