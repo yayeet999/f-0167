@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: ProductFeature }) {
   return (
     <Card className={`bg-${product.bgColor} border-none transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl w-full`}>
       <div className="md:flex p-8">
-        <div className="md:w-1/2 pr-8">
+        <div className={`${product.image ? 'md:w-1/2' : 'w-full'} pr-8`}>
           <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-6`}>
             <product.icon className={`h-10 w-10 text-${product.textColor}`} />
           </div>
@@ -54,7 +54,7 @@ export function ProductCard({ product }: { product: ProductFeature }) {
           </Button>
         </div>
         {product.image && (
-          <div className="md:w-1/2 mt-6 md:mt-0">
+          <div className="md:w-1/2 mt-6 md:mt-0 flex items-center justify-center">
             <img 
               src={product.image} 
               alt={product.name}
