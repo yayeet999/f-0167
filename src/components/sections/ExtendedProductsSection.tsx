@@ -68,6 +68,7 @@ const productCategories = [
         bgColor: "stone-50",
         textColor: "stone-900",
         accentColor: "orange-600",
+        image: "/CareerCraft.png",
         features: [
           "Role-specific optimization",
           "Skills analysis",
@@ -215,6 +216,15 @@ const ExtendedProductsSection = () => {
                         <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-6`}>
                           <product.icon className={`h-10 w-10 text-${product.textColor}`} />
                         </div>
+                        {product.image && (
+                          <div className="mb-6">
+                            <img 
+                              src={product.image} 
+                              alt={product.name}
+                              className="w-full h-auto rounded-lg shadow-md"
+                            />
+                          </div>
+                        )}
                         <h4 className={`text-2xl font-bold text-${product.textColor} mb-4`}>
                           {product.name}
                         </h4>
