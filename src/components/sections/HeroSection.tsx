@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="min-h-screen pt-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-      <div className="container mx-auto px-4 py-20 md:py-32">
+    <section 
+      id="hero" 
+      className="min-h-screen pt-16 relative overflow-hidden"
+      aria-label="Hero Section"
+    >
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 animate-gradient-x"></div>
+      
+      <div className="container mx-auto px-4 py-20 md:py-32 relative">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Transform Your Ideas into Compelling Content with AI
