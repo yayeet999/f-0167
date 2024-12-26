@@ -9,7 +9,155 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      generated_content: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          title: string
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          title: string
+          type: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          title?: string
+          type?: Database["public"]["Enums"]["content_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_content_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          two_factor_enabled: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          two_factor_enabled?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          two_factor_enabled?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscription_tiers: {
+        Row: {
+          created_at: string
+          features: Json
+          id: string
+          name: string
+          price_monthly: number
+          price_yearly: number
+          type: Database["public"]["Enums"]["subscription_tier_type"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          features: Json
+          id?: string
+          name: string
+          price_monthly: number
+          price_yearly: number
+          type: Database["public"]["Enums"]["subscription_tier_type"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          features?: Json
+          id?: string
+          name?: string
+          price_monthly?: number
+          price_yearly?: number
+          type?: Database["public"]["Enums"]["subscription_tier_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_subscriptions: {
+        Row: {
+          active: boolean | null
+          created_at: string
+          id: string
+          tier_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string
+          id?: string
+          tier_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string
+          id?: string
+          tier_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_subscriptions_tier_id_fkey"
+            columns: ["tier_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_tiers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +166,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      content_type: "blog" | "story" | "novel"
+      subscription_tier_type: "free" | "standard" | "pro"
     }
     CompositeTypes: {
       [_ in never]: never
