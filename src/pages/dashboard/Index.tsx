@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { SidebarCategory } from "@/components/dashboard/SidebarCategory";
 import { SidebarMenuItem } from "@/components/dashboard/SidebarMenuItem";
 import { MobileMenu } from "@/components/dashboard/MobileMenu";
-import { StatsCard } from "@/components/dashboard/StatsCard";
-import { SettingsLayout } from "@/components/settings/SettingsLayout";
-import { AccountSection } from "@/components/settings/AccountSection";
-import { PreferencesSection } from "@/components/settings/PreferencesSection";
-import { SupportSection } from "@/components/settings/SupportSection";
+import DashboardView from "@/components/dashboard/views/DashboardView";
+import LibraryView from "@/components/dashboard/LibraryView";
+import SettingsView from "@/components/dashboard/SettingsView";
 import { 
   HomeIcon, BookIcon, PenIcon, LibraryIcon, 
   Settings, Brain, MessageSquare, Sparkles,
@@ -20,15 +17,12 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [expandedCategory, setExpandedCategory] = useState('core');
   const [activeView, setActiveView] = useState('dashboard');
-  const [activeSettingsSection, setActiveSettingsSection] = useState('account');
   const [user, setUser] = useState<any>(null);
-  const [subscription, setSubscription] = useState<any>(null);
-  const [recentProjects, setRecentProjects] = useState<any[]>([]);
 
   useEffect(() => {
     // Check auth state
@@ -38,7 +32,6 @@ const DashboardPage = () => {
         return;
       }
       setUser(session.user);
-      fetchUserData(session.user.id);
     });
 
     // Listen for auth changes
@@ -53,123 +46,17 @@ const DashboardPage = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const fetchUserData = async (userId: string) => {
-    try {
-      // Fetch user subscription
-      const { data: subscriptionData, error: subscriptionError } = await supabase
-        .from('user_subscriptions')
-        .select(`
-          *,
-          subscription_tiers (*)
-        `)
-        .eq('user_id', userId)
-        .single();
-
-      if (subscriptionError) throw subscriptionError;
-      setSubscription(subscriptionData);
-
-      // Fetch recent projects
-      const { data: projectsData, error: projectsError } = await supabase
-        .from('generated_content')
-        .select('*')
-        .eq('user_id', userId)
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (projectsError) throw projectsError;
-      setRecentProjects(projectsData);
-
-    } catch (error: any) {
-      toast({
-        title: "Error fetching data",
-        description: error.message,
-        variant: "destructive",
-      });
+  const renderContent = () => {
+    switch (activeView) {
+      case 'dashboard':
+        return <DashboardView />;
+      case 'library':
+        return <LibraryView />;
+      case 'settings':
+        return <SettingsView />;
+      default:
+        return <DashboardView />;
     }
-  };
-
-  const renderMainContent = () => {
-    if (activeView === 'settings') {
-      return (
-        <SettingsLayout
-          activeSection={activeSettingsSection}
-          onSectionChange={setActiveSettingsSection}
-        >
-          {activeSettingsSection === 'account' && (
-            <AccountSection profile={user} onUpdate={() => fetchUserData(user.id)} />
-          )}
-          {activeSettingsSection === 'preferences' && (
-            <PreferencesSection />
-          )}
-          {activeSettingsSection === 'support' && (
-            <SupportSection />
-          )}
-        </SettingsLayout>
-      );
-    }
-
-    return (
-      <div className="space-y-6">
-        {/* Top Bar */}
-        <div className="bg-white rounded-lg p-4 shadow-sm flex justify-between items-center">
-          <div className="text-xl font-semibold text-blue-900">
-            Welcome back, {user?.email}
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="text-sm text-gray-600">
-              {subscription?.subscription_tiers?.name || 'Free'} Plan
-            </div>
-            <Button variant="outline" className="text-blue-600">New Project</Button>
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <StatsCard
-            label="Active Projects"
-            value={recentProjects.length}
-            color="blue"
-          />
-          <StatsCard
-            label="Words Generated"
-            value="125.4k"
-            color="emerald"
-          />
-          <StatsCard
-            label="Credits Available"
-            value={subscription?.subscription_tiers?.features?.credits || 0}
-            color="amber"
-          />
-        </div>
-
-        {/* Recent Projects */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Projects</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {recentProjects.map((project) => (
-                <div key={project.id} className="p-4 hover:bg-slate-50 rounded-lg flex justify-between items-center transition-colors">
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-lg bg-slate-100 flex items-center justify-center">
-                      <LibraryIcon className="text-slate-600 w-5 h-5" />
-                    </div>
-                    <div>
-                      <div className="font-medium text-slate-900">{project.title}</div>
-                      <div className="text-sm text-slate-500">
-                        {project.type} • {new Date(project.created_at).toLocaleDateString()}
-                      </div>
-                    </div>
-                  </div>
-                  <Button variant="ghost" size="sm" className="text-slate-600">Continue</Button>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
   };
 
   return (
@@ -177,7 +64,7 @@ const DashboardPage = () => {
       <div className="flex">
         {/* Desktop Sidebar */}
         <div className="hidden md:block w-72 fixed h-screen p-4">
-          <div className="w-full bg-white h-full">
+          <div className="w-full bg-white h-full rounded-lg shadow-sm">
             <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
             
             <div className="space-y-1">
@@ -279,6 +166,13 @@ const DashboardPage = () => {
                   onClick={() => setActiveView('dashboard')}
                 />
                 <SidebarMenuItem 
+                  icon={LibraryIcon} 
+                  label="My Library" 
+                  color="gray"
+                  isActive={activeView === 'library'}
+                  onClick={() => setActiveView('library')}
+                />
+                <SidebarMenuItem 
                   icon={Settings} 
                   label="Settings" 
                   color="gray"
@@ -293,7 +187,7 @@ const DashboardPage = () => {
         {/* Main Content */}
         <div className="flex-1 md:ml-72">
           <div className="p-6 pt-20 md:pt-6">
-            {renderMainContent()}
+            {renderContent()}
           </div>
         </div>
       </div>
@@ -301,4 +195,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;
