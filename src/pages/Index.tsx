@@ -7,11 +7,9 @@ import ExtendedProductsSection from "@/components/sections/ExtendedProductsSecti
 import PricingSection from "@/components/sections/PricingSection";
 import FAQSection from "@/components/sections/FAQSection";
 import UseCasesSection from "@/components/sections/UseCasesSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 
 const Index = () => {
   useEffect(() => {
-    // Implement smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -34,7 +32,6 @@ const Index = () => {
         <ExtendedProductsSection />
         <UseCasesSection />
         <PricingSection />
-        <TestimonialsSection />
         <FAQSection />
       </main>
       <Footer />

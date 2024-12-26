@@ -8,8 +8,11 @@ const coreProducts = [
     title: "Blog Generation",
     description: "Create engaging blog posts with AI-powered content generation",
     icon: Pencil,
-    color: "amber",
-    accentColor: "rose",
+    bgColor: "bg-amber-50",
+    textColor: "text-amber-900",
+    headerColor: "text-amber-900",
+    descriptionColor: "text-amber-800",
+    accentColor: "bg-rose-600 hover:bg-rose-700",
     features: [
       "SEO-optimized content",
       "Multiple writing styles",
@@ -21,8 +24,11 @@ const coreProducts = [
     title: "Story Creation",
     description: "Craft compelling stories with advanced narrative AI",
     icon: Book,
-    color: "purple",
-    accentColor: "teal",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-900",
+    headerColor: "text-purple-900",
+    descriptionColor: "text-purple-800",
+    accentColor: "bg-teal-600 hover:bg-teal-700",
     features: [
       "Character development",
       "Plot generation",
@@ -34,8 +40,11 @@ const coreProducts = [
     title: "Novel Writing",
     description: "Generate complete novels with sophisticated AI assistance",
     icon: BookOpen,
-    color: "slate",
-    accentColor: "indigo",
+    bgColor: "bg-slate-50",
+    textColor: "text-slate-900",
+    headerColor: "text-slate-900",
+    descriptionColor: "text-slate-700",
+    accentColor: "bg-indigo-600 hover:bg-indigo-700",
     features: [
       "Chapter organization",
       "Character arcs",
@@ -54,20 +63,20 @@ const CoreProductsSection = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {coreProducts.map((product) => (
-            <Card key={product.title} className={`bg-${product.color}-50 border-${product.color}-100`}>
+            <Card key={product.title} className={`${product.bgColor} border-none`}>
               <CardHeader>
-                <div className={`h-12 w-12 rounded-lg bg-${product.color}-100 p-2 mb-4`}>
-                  <product.icon className={`h-8 w-8 text-${product.color}-900`} />
+                <div className={`h-12 w-12 rounded-lg ${product.bgColor} p-2 mb-4`}>
+                  <product.icon className={`h-8 w-8 ${product.textColor}`} />
                 </div>
-                <CardTitle className={`text-${product.color}-900`}>{product.title}</CardTitle>
+                <CardTitle className={product.headerColor}>{product.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className={`text-${product.color}-800 mb-4`}>{product.description}</p>
+                <p className={`${product.descriptionColor} mb-4`}>{product.description}</p>
                 <ul className="space-y-2">
                   {product.features.map((feature) => (
                     <li key={feature} className="flex items-center">
                       <svg
-                        className={`h-5 w-5 text-${product.accentColor}-600 mr-2`}
+                        className={`h-5 w-5 ${product.textColor} mr-2`}
                         fill="none"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -77,16 +86,13 @@ const CoreProductsSection = () => {
                       >
                         <path d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className={`text-${product.color}-700`}>{feature}</span>
+                      <span className={product.textColor}>{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button
-                  className={`w-full bg-${product.accentColor}-600 hover:bg-${product.accentColor}-700`}
-                  asChild
-                >
+                <Button className={`w-full ${product.accentColor}`} asChild>
                   <Link to="/auth/signup">Try {product.title}</Link>
                 </Button>
               </CardFooter>
