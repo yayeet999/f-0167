@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -19,6 +19,7 @@ import {
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [expandedCategory, setExpandedCategory] = useState('core');
   const [activeView, setActiveView] = useState('dashboard');
@@ -47,6 +48,12 @@ const Dashboard = () => {
   }, [navigate]);
 
   const renderContent = () => {
+    // If we're on a nested route, render the Outlet
+    if (location.pathname !== '/dashboard') {
+      return <Outlet />;
+    }
+
+    // Otherwise render the appropriate view
     switch (activeView) {
       case 'dashboard':
         return <DashboardView />;
@@ -88,6 +95,7 @@ const Dashboard = () => {
                   label="Novel Workshop" 
                   color="slate"
                   to="/dashboard/novel-workshop"
+                  isActive={location.pathname === '/dashboard/novel-workshop'}
                 />
               </SidebarCategory>
 

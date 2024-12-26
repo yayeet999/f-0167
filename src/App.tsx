@@ -21,8 +21,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/novel-workshop" element={<NovelWorkshop />} />
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="novel-workshop" element={<NovelWorkshop />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
