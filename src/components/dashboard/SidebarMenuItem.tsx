@@ -4,10 +4,17 @@ interface SidebarMenuItemProps {
   icon: LucideIcon;
   label: string;
   color: string;
+  isActive?: boolean;
   onClick?: () => void;
 }
 
-export const SidebarMenuItem = ({ icon: Icon, label, color, onClick }: SidebarMenuItemProps) => {
+export const SidebarMenuItem = ({ 
+  icon: Icon, 
+  label, 
+  color, 
+  isActive = false,
+  onClick 
+}: SidebarMenuItemProps) => {
   const colorClasses = {
     amber: 'text-amber-800 hover:bg-amber-50',
     purple: 'text-purple-800 hover:bg-purple-50',
@@ -27,7 +34,9 @@ export const SidebarMenuItem = ({ icon: Icon, label, color, onClick }: SidebarMe
 
   return (
     <div 
-      className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses}`}
+      className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
+        isActive ? 'bg-gray-50' : ''
+      }`}
       onClick={onClick}
     >
       <Icon className="w-4 h-4" />

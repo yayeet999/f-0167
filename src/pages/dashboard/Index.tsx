@@ -8,6 +8,10 @@ import { SidebarCategory } from "@/components/dashboard/SidebarCategory";
 import { SidebarMenuItem } from "@/components/dashboard/SidebarMenuItem";
 import { MobileMenu } from "@/components/dashboard/MobileMenu";
 import { StatsCard } from "@/components/dashboard/StatsCard";
+import { SettingsLayout } from "@/components/settings/SettingsLayout";
+import { AccountSection } from "@/components/settings/AccountSection";
+import { PreferencesSection } from "@/components/settings/PreferencesSection";
+import { SupportSection } from "@/components/settings/SupportSection";
 import { 
   HomeIcon, BookIcon, PenIcon, LibraryIcon, 
   Settings, Brain, MessageSquare, Sparkles,
@@ -20,6 +24,8 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [expandedCategory, setExpandedCategory] = useState('core');
+  const [activeView, setActiveView] = useState('dashboard');
+  const [activeSettingsSection, setActiveSettingsSection] = useState('account');
   const [user, setUser] = useState<any>(null);
   const [subscription, setSubscription] = useState<any>(null);
   const [recentProjects, setRecentProjects] = useState<any[]>([]);
@@ -82,11 +88,89 @@ const DashboardPage = () => {
     }
   };
 
-  const handleSettingsClick = () => {
-    navigate('/dashboard/settings');
-  };
+  const renderMainContent = () => {
+    if (activeView === 'settings') {
+      return (
+        <SettingsLayout
+          activeSection={activeSettingsSection}
+          onSectionChange={setActiveSettingsSection}
+        >
+          {activeSettingsSection === 'account' && (
+            <AccountSection profile={user} onUpdate={() => fetchUserData(user.id)} />
+          )}
+          {activeSettingsSection === 'preferences' && (
+            <PreferencesSection />
+          )}
+          {activeSettingsSection === 'support' && (
+            <SupportSection />
+          )}
+        </SettingsLayout>
+      );
+    }
 
-  if (!user) return null;
+    return (
+      <div className="space-y-6">
+        {/* Top Bar */}
+        <div className="bg-white rounded-lg p-4 shadow-sm flex justify-between items-center">
+          <div className="text-xl font-semibold text-blue-900">
+            Welcome back, {user?.email}
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="text-sm text-gray-600">
+              {subscription?.subscription_tiers?.name || 'Free'} Plan
+            </div>
+            <Button variant="outline" className="text-blue-600">New Project</Button>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StatsCard
+            label="Active Projects"
+            value={recentProjects.length}
+            color="blue"
+          />
+          <StatsCard
+            label="Words Generated"
+            value="125.4k"
+            color="emerald"
+          />
+          <StatsCard
+            label="Credits Available"
+            value={subscription?.subscription_tiers?.features?.credits || 0}
+            color="amber"
+          />
+        </div>
+
+        {/* Recent Projects */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Projects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {recentProjects.map((project) => (
+                <div key={project.id} className="p-4 hover:bg-slate-50 rounded-lg flex justify-between items-center transition-colors">
+                  <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-lg bg-slate-100 flex items-center justify-center">
+                      <LibraryIcon className="text-slate-600 w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-slate-900">{project.title}</div>
+                      <div className="text-sm text-slate-500">
+                        {project.type} • {new Date(project.created_at).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+                  <Button variant="ghost" size="sm" className="text-slate-600">Continue</Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -97,10 +181,13 @@ const DashboardPage = () => {
             <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
             
             <div className="space-y-1">
-              <div className="flex items-center gap-2 p-2 bg-blue-50 text-blue-900 rounded">
-                <HomeIcon className="w-4 h-4" />
-                <span>Dashboard</span>
-              </div>
+              <SidebarMenuItem 
+                icon={HomeIcon} 
+                label="Dashboard" 
+                color="blue"
+                isActive={activeView === 'dashboard'}
+                onClick={() => setActiveView('dashboard')}
+              />
 
               <SidebarCategory
                 title="CORE CREATION"
@@ -158,17 +245,20 @@ const DashboardPage = () => {
               {/* Workspace */}
               <div className="mt-6">
                 <div className="p-2 text-sm font-medium text-gray-500">WORKSPACE</div>
-                <div className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer">
-                  <BookOpen className="w-4 h-4" />
-                  <span>My Library</span>
-                </div>
-                <div 
-                  className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer"
-                  onClick={handleSettingsClick}
-                >
-                  <Settings className="w-4 h-4" />
-                  <span>Settings</span>
-                </div>
+                <SidebarMenuItem 
+                  icon={BookOpen} 
+                  label="My Library" 
+                  color="gray"
+                  isActive={activeView === 'library'}
+                  onClick={() => setActiveView('library')}
+                />
+                <SidebarMenuItem 
+                  icon={Settings} 
+                  label="Settings" 
+                  color="gray"
+                  isActive={activeView === 'settings'}
+                  onClick={() => setActiveView('settings')}
+                />
               </div>
             </div>
           </div>
@@ -181,17 +271,20 @@ const DashboardPage = () => {
             <div className="w-full bg-white h-full">
               <div className="p-2 text-blue-900 font-semibold mb-6">Narrately.ai</div>
               <div className="space-y-1">
-                <div className="flex items-center gap-2 p-2 bg-blue-50 text-blue-900 rounded">
-                  <HomeIcon className="w-4 h-4" />
-                  <span>Dashboard</span>
-                </div>
-                <div 
-                  className="flex items-center gap-2 p-2 text-gray-800 hover:bg-gray-50 rounded cursor-pointer"
-                  onClick={handleSettingsClick}
-                >
-                  <Settings className="w-4 h-4" />
-                  <span>Settings</span>
-                </div>
+                <SidebarMenuItem 
+                  icon={HomeIcon} 
+                  label="Dashboard" 
+                  color="blue"
+                  isActive={activeView === 'dashboard'}
+                  onClick={() => setActiveView('dashboard')}
+                />
+                <SidebarMenuItem 
+                  icon={Settings} 
+                  label="Settings" 
+                  color="gray"
+                  isActive={activeView === 'settings'}
+                  onClick={() => setActiveView('settings')}
+                />
               </div>
             </div>
           </MobileMenu>
@@ -199,65 +292,8 @@ const DashboardPage = () => {
 
         {/* Main Content */}
         <div className="flex-1 md:ml-72">
-          <div className="p-6 pt-20 md:pt-6 space-y-6">
-            {/* Top Bar */}
-            <div className="bg-white rounded-lg p-4 shadow-sm flex justify-between items-center">
-              <div className="text-xl font-semibold text-blue-900">
-                Welcome back, {user.email}
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="text-sm text-gray-600">
-                  {subscription?.subscription_tiers?.name || 'Free'} Plan
-                </div>
-                <Button variant="outline" className="text-blue-600">New Project</Button>
-              </div>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <StatsCard
-                label="Active Projects"
-                value={recentProjects.length}
-                color="blue"
-              />
-              <StatsCard
-                label="Words Generated"
-                value="125.4k"
-                color="emerald"
-              />
-              <StatsCard
-                label="Credits Available"
-                value={subscription?.subscription_tiers?.features?.credits || 0}
-                color="amber"
-              />
-            </div>
-
-            {/* Recent Projects */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Recent Projects</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {recentProjects.map((project) => (
-                    <div key={project.id} className="p-4 hover:bg-slate-50 rounded-lg flex justify-between items-center transition-colors">
-                      <div className="flex items-center gap-4">
-                        <div className="h-10 w-10 rounded-lg bg-slate-100 flex items-center justify-center">
-                          <LibraryIcon className="text-slate-600 w-5 h-5" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-slate-900">{project.title}</div>
-                          <div className="text-sm text-slate-500">
-                            {project.type} • {new Date(project.created_at).toLocaleDateString()}
-                          </div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm" className="text-slate-600">Continue</Button>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          <div className="p-6 pt-20 md:pt-6">
+            {renderMainContent()}
           </div>
         </div>
       </div>
