@@ -17,18 +17,18 @@ interface ProductFeature {
 export function ProductCard({ product }: { product: ProductFeature }) {
   return (
     <Card className={`bg-${product.bgColor} border-none transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl w-full`}>
-      <div className="md:flex p-8">
-        <div className={`${product.image ? 'md:w-1/2' : 'w-full'} pr-8`}>
-          <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-6`}>
+      <div className="md:flex p-6">
+        <div className={`${product.image ? 'md:w-1/2' : 'w-full'} ${product.image ? 'pr-6' : ''}`}>
+          <div className={`h-16 w-16 rounded-xl bg-${product.bgColor} p-3 mb-4`}>
             <product.icon className={`h-10 w-10 text-${product.textColor}`} />
           </div>
-          <h4 className={`text-2xl font-bold text-${product.textColor} mb-4`}>
+          <h4 className={`text-2xl font-bold text-${product.textColor} mb-3`}>
             {product.name}
           </h4>
-          <p className={`text-${product.textColor} opacity-90 text-lg mb-6`}>
+          <p className={`text-${product.textColor} opacity-90 text-lg mb-4`}>
             {product.description}
           </p>
-          <ul className="space-y-4 mb-8">
+          <ul className="space-y-3 mb-6">
             {product.features.map((feature) => (
               <li key={feature} className="flex items-center">
                 <svg
@@ -58,7 +58,7 @@ export function ProductCard({ product }: { product: ProductFeature }) {
             <img 
               src={product.image} 
               alt={product.name}
-              className="w-full h-auto object-contain"
+              className="w-full h-auto object-contain max-h-64"
             />
           </div>
         )}
