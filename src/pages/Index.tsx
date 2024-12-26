@@ -6,7 +6,7 @@ import CoreProductsSection from "@/components/sections/CoreProductsSection";
 import ExtendedProductsSection from "@/components/sections/ExtendedProductsSection";
 import PricingSection from "@/components/sections/PricingSection";
 import FAQSection from "@/components/sections/FAQSection";
-import UseCasesSection from "@/components/sections/UseCasesSection";
+// Removed UseCasesSection import
 
 const Index = () => {
   useEffect(() => {
@@ -30,7 +30,7 @@ const Index = () => {
         <HeroSection />
         <CoreProductsSection />
         <ExtendedProductsSection />
-        <UseCasesSection />
+        {/* Removed UseCasesSection */}
         <PricingSection />
         <FAQSection />
       </main>
