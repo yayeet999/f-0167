@@ -65,7 +65,6 @@ const productCategories = [
         bgColor: "stone-50",
         textColor: "stone-900",
         accentColor: "orange-600",
-        image: "/CareerCraft.png",
         features: [
           "Role-specific optimization",
           "Skills analysis",
