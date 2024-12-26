@@ -1,23 +1,46 @@
 import type { Config } from "tailwindcss";
 
 export default {
-	darkMode: ["class"],
-	content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],
-	prefix: "",
-	theme: {
-		container: {
-			center: true,
-			padding: '2rem',
-			screens: {
-				'2xl': '1400px'
-			}
-		},
-		extend: {
+  darkMode: ["class"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
+  prefix: "",
+  safelist: [
+    // Add background colors
+    'bg-cyan-50', 'bg-green-50', 'bg-gray-50', 'bg-stone-50',
+    'bg-orange-50', 'bg-fuchsia-50', 'bg-red-50', 'bg-emerald-50',
+    'bg-yellow-50', 'bg-lime-50', 'bg-zinc-50',
+    // Add text colors
+    'text-cyan-900', 'text-green-900', 'text-gray-900', 'text-stone-900',
+    'text-orange-900', 'text-fuchsia-900', 'text-red-900', 'text-emerald-900',
+    'text-yellow-900', 'text-lime-900', 'text-zinc-900',
+    // Add accent colors
+    'text-violet-600', 'text-yellow-600', 'text-blue-600', 'text-orange-600',
+    'text-sky-600', 'text-lime-600', 'text-slate-600', 'text-pink-600',
+    'text-purple-600', 'text-red-600', 'text-teal-600',
+    // Add hover states
+    'hover:bg-violet-600/90', 'hover:bg-yellow-600/90', 'hover:bg-blue-600/90',
+    'hover:bg-orange-600/90', 'hover:bg-sky-600/90', 'hover:bg-lime-600/90',
+    'hover:bg-slate-600/90', 'hover:bg-pink-600/90', 'hover:bg-purple-600/90',
+    'hover:bg-red-600/90', 'hover:bg-teal-600/90',
+    // Add background accent colors
+    'bg-violet-600', 'bg-yellow-600', 'bg-blue-600', 'bg-orange-600',
+    'bg-sky-600', 'bg-lime-600', 'bg-slate-600', 'bg-pink-600',
+    'bg-purple-600', 'bg-red-600', 'bg-teal-600'
+  ],
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px'
+      }
+    },
+    extend: {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 			},
@@ -104,7 +127,7 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
-		}
-	},
-	plugins: [require("tailwindcss-animate")],
+    }
+  },
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
