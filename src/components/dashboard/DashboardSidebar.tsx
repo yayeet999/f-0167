@@ -109,15 +109,8 @@ export const DashboardSidebar = () => {
             onToggle={() => setExpandedCategory(expandedCategory === 'user' ? '' : 'user')}
           >
             <SidebarMenuItem 
-              icon={User} 
-              label="Profile" 
-              color="indigo"
-              to="/dashboard/profile"
-              isActive={location.pathname === '/dashboard/profile'}
-            />
-            <SidebarMenuItem 
               icon={Settings} 
-              label="Settings" 
+              label="Profile & Settings" 
               color="gray"
               to="/dashboard/settings"
               isActive={location.pathname === '/dashboard/settings'}
