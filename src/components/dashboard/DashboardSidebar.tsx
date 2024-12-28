@@ -5,7 +5,7 @@ import {
   Settings, Brain, MessageSquare, Sparkles,
   Mail, FileText, BarChart, ChevronRight,
   Code, FileSearch, BookOpen, Layout,
-  FileSpreadsheet
+  FileSpreadsheet, User
 } from 'lucide-react';
 import { SidebarCategory } from "./SidebarCategory";
 import { SidebarMenuItem } from "./SidebarMenuItem";
@@ -59,48 +59,70 @@ export const DashboardSidebar = () => {
             />
           </SidebarCategory>
 
-              {/* Interactive Tools */}
-              <SidebarCategory
-                title="INTERACTIVE"
-                isExpanded={expandedCategory === 'interactive'}
-                onToggle={() => setExpandedCategory(expandedCategory === 'interactive' ? '' : 'interactive')}
-              >
-                <SidebarMenuItem icon={Layout} label="Interactive Story" color="cyan" />
-                <SidebarMenuItem icon={FileText} label="AuthentiText™" color="green" />
-                <SidebarMenuItem icon={MessageSquare} label="DocumentChat" color="fuchsia" />
-              </SidebarCategory>
+          {/* Interactive Tools */}
+          <SidebarCategory
+            title="INTERACTIVE"
+            isExpanded={expandedCategory === 'interactive'}
+            onToggle={() => setExpandedCategory(expandedCategory === 'interactive' ? '' : 'interactive')}
+          >
+            <SidebarMenuItem icon={Layout} label="Interactive Story" color="cyan" />
+            <SidebarMenuItem icon={FileText} label="AuthentiText™" color="green" />
+            <SidebarMenuItem icon={MessageSquare} label="DocumentChat" color="fuchsia" />
+          </SidebarCategory>
 
-              {/* Professional Tools */}
-              <SidebarCategory
-                title="PROFESSIONAL"
-                isExpanded={expandedCategory === 'professional'}
-                onToggle={() => setExpandedCategory(expandedCategory === 'professional' ? '' : 'professional')}
-              >
-                <SidebarMenuItem icon={BarChart} label="Business Reports" color="gray" />
-                <SidebarMenuItem icon={FileSpreadsheet} label="CareerCraft" color="stone" />
-                <SidebarMenuItem icon={Mail} label="EmailCraft" color="yellow" />
-              </SidebarCategory>
+          {/* Professional Tools */}
+          <SidebarCategory
+            title="PROFESSIONAL"
+            isExpanded={expandedCategory === 'professional'}
+            onToggle={() => setExpandedCategory(expandedCategory === 'professional' ? '' : 'professional')}
+          >
+            <SidebarMenuItem icon={BarChart} label="Business Reports" color="gray" />
+            <SidebarMenuItem icon={FileSpreadsheet} label="CareerCraft" color="stone" />
+            <SidebarMenuItem icon={Mail} label="EmailCraft" color="yellow" />
+          </SidebarCategory>
 
-              {/* Learning & Analysis */}
-              <SidebarCategory
-                title="LEARNING & ANALYSIS"
-                isExpanded={expandedCategory === 'learning'}
-                onToggle={() => setExpandedCategory(expandedCategory === 'learning' ? '' : 'learning')}
-              >
-                <SidebarMenuItem icon={Brain} label="Course Creator" color="orange" />
-                <SidebarMenuItem icon={FileSearch} label="ProofPerfect™" color="red" />
-                <SidebarMenuItem icon={Layout} label="VisualLogic" color="emerald" />
-              </SidebarCategory>
+          {/* Learning & Analysis */}
+          <SidebarCategory
+            title="LEARNING & ANALYSIS"
+            isExpanded={expandedCategory === 'learning'}
+            onToggle={() => setExpandedCategory(expandedCategory === 'learning' ? '' : 'learning')}
+          >
+            <SidebarMenuItem icon={Brain} label="Course Creator" color="orange" />
+            <SidebarMenuItem icon={FileSearch} label="ProofPerfect™" color="red" />
+            <SidebarMenuItem icon={Layout} label="VisualLogic" color="emerald" />
+          </SidebarCategory>
 
-              {/* Developer Tools */}
-              <SidebarCategory
-                title="DEVELOPER"
-                isExpanded={expandedCategory === 'developer'}
-                onToggle={() => setExpandedCategory(expandedCategory === 'developer' ? '' : 'developer')}
-              >
-                <SidebarMenuItem icon={Sparkles} label="StyleMimic" color="lime" />
-                <SidebarMenuItem icon={Code} label="RepoVision" color="zinc" />
-              </SidebarCategory>
+          {/* Developer Tools */}
+          <SidebarCategory
+            title="DEVELOPER"
+            isExpanded={expandedCategory === 'developer'}
+            onToggle={() => setExpandedCategory(expandedCategory === 'developer' ? '' : 'developer')}
+          >
+            <SidebarMenuItem icon={Sparkles} label="StyleMimic" color="lime" />
+            <SidebarMenuItem icon={Code} label="RepoVision" color="zinc" />
+          </SidebarCategory>
+
+          {/* User & Settings */}
+          <SidebarCategory
+            title="USER"
+            isExpanded={expandedCategory === 'user'}
+            onToggle={() => setExpandedCategory(expandedCategory === 'user' ? '' : 'user')}
+          >
+            <SidebarMenuItem 
+              icon={User} 
+              label="Profile" 
+              color="indigo"
+              to="/dashboard/profile"
+              isActive={location.pathname === '/dashboard/profile'}
+            />
+            <SidebarMenuItem 
+              icon={Settings} 
+              label="Settings" 
+              color="gray"
+              to="/dashboard/settings"
+              isActive={location.pathname === '/dashboard/settings'}
+            />
+          </SidebarCategory>
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Dashboard from "./pages/dashboard/Index";
 import NovelWorkshop from "./pages/dashboard/NovelWorkshop";
+import SettingsView from "./components/dashboard/SettingsView";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="novel-workshop" element={<NovelWorkshop />} />
+            <Route path="settings" element={<SettingsView />} />
           </Route>
         </Routes>
       </BrowserRouter>
