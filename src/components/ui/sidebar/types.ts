@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
+import { TooltipContent } from "@/components/ui/tooltip";
 
 export interface SidebarContext {
   state: "expanded" | "collapsed";

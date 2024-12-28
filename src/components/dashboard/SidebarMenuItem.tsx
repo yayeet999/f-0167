@@ -1,5 +1,10 @@
 import { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 
 interface SidebarMenuItemProps {
   icon: LucideIcon;
@@ -8,6 +13,7 @@ interface SidebarMenuItemProps {
   isActive?: boolean;
   onClick?: () => void;
   to?: string;
+  tooltip?: string;
 }
 
 export const SidebarMenuItem = ({ 
@@ -16,7 +22,8 @@ export const SidebarMenuItem = ({
   color, 
   isActive = false,
   onClick,
-  to
+  to,
+  tooltip
 }: SidebarMenuItemProps) => {
   const colorClasses = {
     amber: 'text-amber-800 hover:bg-amber-50',
@@ -42,20 +49,16 @@ export const SidebarMenuItem = ({
     </>
   );
 
-  if (to) {
-    return (
-      <Link 
-        to={to}
-        className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
-          isActive ? 'bg-gray-50' : ''
-        }`}
-      >
-        {content}
-      </Link>
-    );
-  }
-
-  return (
+  const menuItem = to ? (
+    <Link 
+      to={to}
+      className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
+        isActive ? 'bg-gray-50' : ''
+      }`}
+    >
+      {content}
+    </Link>
+  ) : (
     <div 
       className={`flex items-center gap-2 p-2 rounded cursor-pointer ${colorClasses} ${
         isActive ? 'bg-gray-50' : ''
@@ -65,4 +68,19 @@ export const SidebarMenuItem = ({
       {content}
     </div>
   );
+
+  if (tooltip) {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          {menuItem}
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{tooltip}</p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  return menuItem;
 };
