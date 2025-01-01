@@ -20,10 +20,10 @@ export const StatsCard = ({ label, value, color }: StatsCardProps) => {
   }[color] || 'text-gray-900';
 
   return (
-    <Card className={colorClasses}>
+    <Card className={`${colorClasses} border-none shadow-sm hover:shadow-md transition-shadow duration-200`}>
       <CardContent className="pt-6 pb-6">
-        <div className="text-sm">{label}</div>
-        <div className={`text-3xl font-semibold mt-1 ${valueColorClasses}`}>{value}</div>
+        <div className="text-sm font-medium">{label}</div>
+        <div className={`text-3xl font-semibold mt-2 ${valueColorClasses}`}>{value}</div>
       </CardContent>
     </Card>
   );
