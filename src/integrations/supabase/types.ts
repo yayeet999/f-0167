@@ -116,48 +116,6 @@ export type Database = {
         }
         Relationships: []
       }
-      user_subscriptions: {
-        Row: {
-          active: boolean | null
-          created_at: string
-          id: string
-          tier_id: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          active?: boolean | null
-          created_at?: string
-          id?: string
-          tier_id: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          active?: boolean | null
-          created_at?: string
-          id?: string
-          tier_id?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_subscriptions_tier_id_fkey"
-            columns: ["tier_id"]
-            isOneToOne: false
-            referencedRelation: "subscription_tiers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
     }
     Views: {
       [_ in never]: never
