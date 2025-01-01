@@ -5,7 +5,7 @@ import {
   BookText,
   BookOpen,
   BookOpenText,
-  Controller,
+  Gamepad2,
   Settings,
   UserRound
 } from 'lucide-react';
@@ -64,7 +64,7 @@ export const DashboardSidebar = () => {
               className="hover:bg-slate-50 transition-colors duration-200"
             />
             <SidebarMenuItem 
-              icon={Controller} 
+              icon={Gamepad2} 
               label="Interactive Workshop" 
               color="cyan"
               className="hover:bg-cyan-50 transition-colors duration-200"
